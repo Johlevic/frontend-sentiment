@@ -3,9 +3,11 @@
 El frontend permite a los usuarios interactuar con un modelo de Data Science (Regresión Logística + TF-IDF) de forma sencilla.
 
 
-![Portada del Proyecto](./src/assets/img/captura-frontend.png)
+![Interfaz de formulario de análisis](./src/assets/img/captura-form.png)
+*Figura 1: Interfaz principal para ingreso de comentarios*
 
-> **MVP de Análisis de Sentimiento** desarrollado para la Teletón de Alura Latam.
+![Visualización de resultados del análisis](./src/assets/img/captura-result.png)
+*Figura 2: Pantalla de resultados con sentimiento y probabilidad*
 
 * **Sector:** Atención al Cliente / Operaciones.
 * **Misión:** Transformar texto no estructurado en información accionable (Sentimiento + Probabilidad).
