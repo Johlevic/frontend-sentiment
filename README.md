@@ -1,27 +1,68 @@
-# SentimentApp
+# 🎯 Análisis de Sentimientos - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+El frontend permite a los usuarios interactuar con un modelo de Data Science (Regresión Logística + TF-IDF) de forma sencilla.
 
-## Development server
+* **Sector:** Atención al Cliente / Operaciones.
+* **Misión:** Transformar texto no estructurado en información accionable (Sentimiento + Probabilidad).
+* **Validación:** Identificación de urgencias en quejas y medición de satisfacción.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🛠️ Stack Tecnológico
 
-## Code scaffolding
+* **Framework:** Angular 17.3.6 (Standalone Components).
+* **Estilos:** Tailwind CSS (Diseño responsivo y Dark Mode).
+* **Comunicación:** REST API con backend en FastAPI.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 📦 Arquitectura de Integración
 
-## Build
+La aplicación consume un microservicio de Inteligencia Artificial que sigue el siguiente flujo de datos:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Input:** El usuario ingresa un texto (mínimo 3 caracteres).
+2. **Procesamiento:** El servicio Angular envía un `POST` al backend de Python.
+3. **Respuesta:** Se recibe un JSON con la `prevision` y la `probabilidad`.
+4. **Visualización:** Interfaz dinámica que cambia de color según el sentimiento detectado.
 
-## Running unit tests
+## 📋 Requisitos Previos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Node.js (versión 18 o superior).
+* Angular CLI instalado globalmente.
 
-## Running end-to-end tests
+## 🔧 Instalación y Uso
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 1. Clonar el repositorio:
+```bash
+git clone https://github.com/grupo-10-proyecto-1/demo
+cd frontend-sentiment
+```
 
-## Further help
+### 2. Instalar dependencias:
+```bash
+npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### 3. Configurar el Backend:
+
+Asegúrate de que tu API de FastAPI esté corriendo (por defecto en `http://localhost:8000`). Modifica el archivo `environment.ts` si es necesario.
+
+### 4. Levantar servidor de desarrollo:
+```bash
+ng serve
+```
+
+Navega a `http://localhost:4200/`.
+
+## 📂 Estructura de Componentes Clave
+
+* **`AnalizarComentarioComponent`:** Maneja la entrada de texto y estados de carga.
+* **`ResultadoComponent`:** Muestra el veredicto de la IA con barras de probabilidad dinámicas.
+* **`FooterComponent`:** Contiene la documentación técnica y créditos del Hackathon (con diseño colapsable para móviles).
+
+## 👥 Equipo - Grupo 10
+
+Proyecto desarrollado por especialistas en Back-end (Java/Python) y Data Science para la comunidad de Alura Latam.
+
+* **Backend/IA:** [Repositorio FastAPI](#)
+* **Frontend:** [Repositorio Demo](https://github.com/grupo-10-proyecto-1/demo)
+
+---
+
+Este proyecto fue construido con fines educativos para demostrar la integración entre modelos de aprendizaje automático y aplicaciones web modernas.
