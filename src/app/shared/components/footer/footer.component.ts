@@ -1,13 +1,16 @@
 import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { ApiHealthService } from '../../../core/services/api-health.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+   imports: [CommonModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
 export class FooterComponent implements AfterViewInit {
+   apiStatus: 'online' | 'offline' | 'checking' = 'checking';
 
   @ViewChild('stackDetails') stackDetails!: ElementRef<HTMLDetailsElement>;
   @ViewChild('metricsDetails') metricsDetails!: ElementRef<HTMLDetailsElement>;
@@ -32,6 +35,15 @@ export class FooterComponent implements AfterViewInit {
       } else {
         ref.nativeElement.open = false;
       }
+    });
+  }
+
+  constructor(private apiHealth: ApiHealthService) {}
+
+  ngOnInit() {
+    this.apiHealth.checkHealth().subscribe({
+      next: () => this.apiStatus = 'online',
+      error: () => this.apiStatus = 'offline'
     });
   }
 

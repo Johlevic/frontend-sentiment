@@ -2,30 +2,38 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
 import {
   SentimentResponse,
-  SentimentApiResponse
+  SentimentApiResponse,
 } from '../models/sentiment-response';
+import { environment } from '../../../environments/environment';
+import { SentimentMetricsApiResponse } from '../models/sentiment-metrics';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class SentimentService {
 
-  private readonly API_URL = 'http://localhost:8080/sentiment';
+
+export class SentimentService {
+  private readonly API_URL =
+    environment.api.baseUrl + environment.api.sentiment;
+  
+  private readonly METRICS_URL =
+  environment.api.baseUrl + environment.api.stats;
+
+
 
   constructor(private http: HttpClient) {}
 
   analyze(text: string): Observable<SentimentResponse> {
-    return this.http
-      .post<SentimentApiResponse>(this.API_URL, { text })
-      .pipe(
-        map(res => ({
-          sentiment: this.mapSentiment(res.prevision),
-          probability: res.probabilidad
-        })),
-        catchError(this.handleError)
-      );
+    return this.http.post<SentimentApiResponse>(this.API_URL, { text }).pipe(
+      map((res) => ({
+        sentiment: this.mapSentiment(res.prevision),
+        probability: res.probabilidad,
+      })),
+      catchError(this.handleError)
+    );
   }
 
   private mapSentiment(value: string): 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL' {
@@ -54,4 +62,18 @@ export class SentimentService {
 
     return throwError(() => new Error(message));
   }
+  getMetrics() {
+  return this.http
+    .get<SentimentMetricsApiResponse>(this.METRICS_URL)
+    .pipe(
+      map(res => ({
+        positive: res.pctPositivos,
+        neutral: res.pctNeutros,
+        negative: res.pctNegativos,
+        total: res.total
+      })),
+      catchError(this.handleError)
+    );
+}
+
 }

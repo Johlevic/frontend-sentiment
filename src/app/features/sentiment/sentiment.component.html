@@ -11,5 +11,8 @@
   [result]="result">
 </app-sentiment-result>
 
-<app-sentiment-metrics></app-sentiment-metrics>
+<app-sentiment-metrics
+  *ngIf="metrics"
+  [metrics]="metrics">
+</app-sentiment-metrics>
 <app-footer></app-footer>

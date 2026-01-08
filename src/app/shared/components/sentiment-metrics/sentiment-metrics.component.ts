@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SentimentMetrics } from '../../../core/models/sentiment-metrics';
 
 @Component({
   selector: 'app-sentiment-metrics',
@@ -10,11 +11,6 @@ import { Component } from '@angular/core';
 })
 export class SentimentMetricsComponent {
 
-   metrics = {
-    positive: 65,
-    neutral: 20,
-    negative: 15,
-    total: 120
-  };
+    @Input() metrics!: SentimentMetrics;
 
 }
